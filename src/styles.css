@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 img#logo{
   position: relative;
+  margin: auto;
+  margin-top: 100px;
+  width:300px;
+  display: block;
 }
