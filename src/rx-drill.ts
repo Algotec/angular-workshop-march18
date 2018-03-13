@@ -14,3 +14,6 @@ const obs1 = Observable.create(function (observer) {
   };
 });
 
+obs1.subscribe(console.log);
+
+
