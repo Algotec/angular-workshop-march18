@@ -9,6 +9,10 @@ export class PetModel {
     return `assets/pet/${this.id}.png`;
   }
 
+  toggle() {
+    this.awake = !this.awake;
+  }
+
 
   constructor(name = '', awake = true) {
     this.name = name;

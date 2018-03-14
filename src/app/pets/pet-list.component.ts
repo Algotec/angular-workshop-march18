@@ -17,7 +17,7 @@ import {PetService} from './pet.service';
       <h2>Pet List</h2>
       <ul>
         <li *ngFor="let currPet of petService.pets | petSearch:'c'">
-          <pet-renderer [pet]="currPet"></pet-renderer>
+          <pet-renderer  (awakeChange)="petService.toggleAwake(currPet)" [pet]="currPet"></pet-renderer>
         </li>
       </ul>
     </section>
