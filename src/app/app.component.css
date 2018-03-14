@@ -1,0 +1,18 @@
+h1 {
+  color: darkseagreen;
+}
+h1::after{
+  content: " "; /* Older browser do not support empty content */
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+}
+
+.logo {
+  float: left;
+}
+
+img {
+  width: 50px;
+}

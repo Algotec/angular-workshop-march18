@@ -5,7 +5,7 @@ import {PetModel} from './pet.model';
 @Component({
   selector: 'pet-input',
   template: `
-    <input type="text" placeholder="Pet Name" [(ngModel)]="petModel.name"/>
+   <h4>Add Pet</h4> <input type="text" placeholder="Pet Name" [(ngModel)]="petModel.name"/>
     <button (click)="addPet()">Add Pet</button>
   `
 })
