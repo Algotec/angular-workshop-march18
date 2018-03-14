@@ -10,7 +10,7 @@ import {PetModel} from './pet.model';
   `
 })
 export class PetInputComponent {
-  petModel = new PetModel('moki');
+  petModel = new PetModel('');
   petService: PetService;
 
   constructor(petService: PetService) {
@@ -19,6 +19,7 @@ export class PetInputComponent {
 
   addPet(petName: string) {
     this.petService.addPet(this.petModel);
+    this.petModel = new PetModel();
   }
 
 }
