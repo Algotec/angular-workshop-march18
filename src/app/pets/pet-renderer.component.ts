@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { PetModel } from './pet.model';
 @Component({
+  encapsulation: ViewEncapsulation.Emulated, // switch to .Native and.None to see the difference
   selector: 'pet-renderer',
   styles: [`
     img {
