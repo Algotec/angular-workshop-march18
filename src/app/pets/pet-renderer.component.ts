@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { PetModel } from './pet.model';
+import {Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
+import {PetModel} from './pet.model';
+
 @Component({
   encapsulation: ViewEncapsulation.Emulated, // switch to .Native and.None to see the difference
   selector: 'pet-renderer',
@@ -15,13 +16,25 @@ import { PetModel } from './pet.model';
   template: `
     <div class="pet-renderer">
       <span [class.awake]="pet.awake" class="petName">{{pet.name}}</span>
-      <input type="checkbox" [checked]="pet.awake" (change)="awakeChange.emit()">
       <img [src]="pet.imgUrl"/>
+      <div>
+        <small>Time till asleep</small>
+        <countdown [to]="pet.nextFeedAt" (due)="petAwakeToggle()"></countdown>
+      </div>
+      <button (click)="feedPet()">Feed</button>
     </div>`
 })
 export class PetRendererComponent {
   @Input() pet: PetModel;
   @Output() awakeChange = new EventEmitter();
+  @Output() feed = new EventEmitter();
 
+  petAwakeToggle() {
+    this.awakeChange.emit();
+  }
+
+  feedPet() {
+    this.feed.emit(this.pet);
+  }
 
 }

@@ -18,7 +18,7 @@ import {PetService} from './pet.service';
       <letter-selector [letter]="letter" (select)="letter = $event"></letter-selector>
       <ul>
         <li *ngFor="let currPet of petService.pets | petSearch:letter">
-          <pet-renderer (awakeChange)="petService.toggleAwake(currPet)" [pet]="currPet"></pet-renderer>
+          <pet-renderer  (feed)="petService.feed(currPet)"  (awakeChange)="petService.toggleAwake(currPet)" [pet]="currPet"></pet-renderer>
         </li>
       </ul>
     </section>
