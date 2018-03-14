@@ -1,8 +1,6 @@
 import {Observable} from 'rxjs/observable';
 import {fromEvent} from 'rxjs/observable/fromEvent';
-import {filter} from 'rxjs/operators/filter';
-import {tap} from 'rxjs/operators/tap';
-import {takeUntil} from 'rxjs/operators/takeUntil';
+import {filter, map, mergeMap, tap, takeUntil} from 'rxjs/operators';
 
 const keyDown$: Observable<KeyboardEvent> = fromEvent(document, 'keydown');
 const img: HTMLImageElement = document.querySelector('#logo') as HTMLImageElement;
@@ -45,8 +43,43 @@ keyDown$
   });
 
 
-
-
 /** drill 1: make the angular logo draggable - hint - use mousedown->mousemove until mouseup
  * */
+
+
+
+const mouseDowns$: Observable<MouseEvent> = fromEvent(img, 'mousedown');
+const parentMouseMoves$: Observable<MouseEvent> = fromEvent(document, 'mousemove');
+const parentMouseUps$: Observable<MouseEvent> = fromEvent(document, 'mouseup');
+
+const drags$ = mouseDowns$.pipe(mergeMap(md => {
+
+  // calculate offsets when mouse down
+
+  const startX = md.clientX + window.scrollX,
+    startY = md.clientY + window.scrollY,
+    startLeft = parseInt((md.target as HTMLElement).style.left, 10) || 0,
+    startTop = parseInt((md.target as HTMLElement).style.top, 10) || 0;
+
+
+  // Calculate delta with mousemove until mouseup
+  return parentMouseMoves$
+    .pipe(
+      map((mm: MouseEvent) => {
+        mm.preventDefault();
+        return {
+          left: startLeft + mm.clientX - startX,
+          top: startTop + mm.clientY - startY
+        };
+      }),
+      takeUntil(parentMouseUps$));
+}));
+
+
+const subscription =
+  drags$.subscribe(
+    (e: { left: number, top: number }) => {
+      img.style.left = e.left + 'px';
+      img.style.top = e.top + 'px';
+    });
 
