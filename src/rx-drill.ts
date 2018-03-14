@@ -1,6 +1,11 @@
 import {Observable} from 'rxjs/observable';
 import {fromEvent} from 'rxjs/observable/fromEvent';
-import {filter, map, mergeMap, tap, takeUntil} from 'rxjs/operators';
+import {interval} from 'rxjs/observable/interval';
+import {merge} from 'rxjs/observable/merge';
+import {filter} from 'rxjs/operators/filter';
+import {map} from 'rxjs/operators/map';
+import {takeUntil} from 'rxjs/operators/takeUntil';
+import {mapTo, tap, mergeMap, scan, startWith, switchMap} from 'rxjs/operators';
 
 const keyDown$: Observable<KeyboardEvent> = fromEvent(document, 'keydown');
 const img: HTMLImageElement = document.querySelector('#logo') as HTMLImageElement;
@@ -41,7 +46,6 @@ keyDown$
     img.style.top = top + val + 'px';
 
   });
-
 
 
 /** drill 1: make the angular logo draggable - hint - use mousedown->mousemove until mouseup
@@ -101,9 +105,28 @@ interface BtnObs {
 }
 
 
-const obs: BtnObs = buttons.reduce((acc, btn) => {
+const btnObs: BtnObs = buttons.reduce((acc, btn) => {
   acc[btn] = fromEvent(document.getElementById(btn), 'click');
   return acc;
 }, {} as BtnObs);
 
 const output = document.getElementById('output');
+
+const initial = 0;
+const inc = (val) => val + 1;
+const reset = (val) => initial;
+
+const starters$ = merge(
+  btnObs.start.pipe(mapTo(1000)), btnObs.quick.pipe(mapTo(500)), btnObs.slow.pipe(mapTo(2000)));
+
+const timer$ = starters$.pipe(
+  switchMap((v: number) => interval(v).pipe(takeUntil(btnObs.stop))));
+
+const actions$ = merge(btnObs.reset.pipe(mapTo(reset)), timer$.pipe(mapTo(inc)));
+
+actions$.pipe(
+  scan((acc: number, val: (v: number) => number) => val(acc), initial),
+  startWith(initial),
+).subscribe(value => {
+  output.innerText = value.toString();
+});
