@@ -88,3 +88,22 @@ const subscription =
  * drill 2: make a counter that can start, stop, reset and change between quick and slow increments
  * hints, take it step by step !
  * */
+
+
+const buttons = ['start', 'stop', 'reset', 'quick', 'slow'];
+
+interface BtnObs {
+  'start': Observable<MouseEvent>;
+  'stop': Observable<MouseEvent>;
+  'reset': Observable<MouseEvent>;
+  'quick': Observable<MouseEvent>;
+  'slow': Observable<MouseEvent>;
+}
+
+
+const obs: BtnObs = buttons.reduce((acc, btn) => {
+  acc[btn] = fromEvent(document.getElementById(btn), 'click');
+  return acc;
+}, {} as BtnObs);
+
+const output = document.getElementById('output');
