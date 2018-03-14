@@ -16,7 +16,7 @@ import {PetService} from './pet.service';
     <section>
       <h2>Pet List</h2>
       <ul>
-        <li *ngFor="let currPet of petService.pets">
+        <li *ngFor="let currPet of petService.pets | petSearch">
           <pet-renderer [pet]="currPet"></pet-renderer>
         </li>
       </ul>
