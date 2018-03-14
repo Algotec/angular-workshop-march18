@@ -5,6 +5,7 @@ import {PetService} from './pets/pet.service';
 import {AppComponent} from './app.component';
 import {PetInputComponent} from './pets/pet-input.component';
 import {PetListComponent} from './pets/pet-list.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import {PetListComponent} from './pets/pet-list.component';
     PetListComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule, // notice that this must be included for ngModel to work
   ],
   providers: [PetService],
   bootstrap: [AppComponent]
