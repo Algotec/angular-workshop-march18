@@ -16,14 +16,15 @@ import {PetService} from './pet.service';
     <section>
       <h2>Pet List</h2>
       <ul>
-        <!-- Pets would be iterated here using LI tag for each one -->
+        <li *ngFor="let petName of petService.pets">
+          <span class="petName">{{petName}}</span>
+        </li>
       </ul>
     </section>
   `
 })
 export class PetListComponent {
   constructor(public petService: PetService) {
-
   }
 
 
