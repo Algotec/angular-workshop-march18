@@ -6,3 +6,5 @@ img#logo{
   width:300px;
   display: block;
 }
+button{display:block;font-size:2em;padding:10px 200px;margin:auto; width:80%;}
+#output {font-size:3em; text-align:center; color:gold}

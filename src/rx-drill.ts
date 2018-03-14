@@ -43,6 +43,7 @@ keyDown$
   });
 
 
+
 /** drill 1: make the angular logo draggable - hint - use mousedown->mousemove until mouseup
  * */
 
@@ -83,3 +84,7 @@ const subscription =
       img.style.top = e.top + 'px';
     });
 
+/**
+ * drill 2: make a counter that can start, stop, reset and change between quick and slow increments
+ * hints, take it step by step !
+ * */
