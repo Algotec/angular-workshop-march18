@@ -16,12 +16,8 @@ import {PetService} from './pet.service';
     <section>
       <h2>Pet List</h2>
       <ul>
-        <li *ngFor="let pet of petService.pets">
-          <span class="petName">{{pet.name}}</span>
-          <input type="checkbox" [(ngModel)]="pet.awake">
-          <p [hidden]="!pet.awake">
-            Pet is awake
-          </p>
+        <li *ngFor="let currPet of petService.pets">
+          <pet-renderer [pet]="currPet"></pet-renderer>
         </li>
       </ul>
     </section>
