@@ -1,31 +1,14 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {map} from 'rxjs/operators';
+import {interval} from 'rxjs/observable/interval';
 
 @Component({
   selector: 'clock',
-  template: `
-    <div>{{currTime | date:'HH:mm:ss'}}</div>`
+  template: `{{clock$ | async | date:'HH:mm:ss'}}`
 
 })
 
-export class ClockComponent implements OnInit, OnDestroy {
-
-  private clockInterval: any;
-  public currTime: Date;
-
-
-  ngOnInit() {
-    this.startClock(); // its better to init in ngOnInit for testability.
-  }
-
-  startClock() {
-    this.clockInterval = setInterval(() => {
-      this.currTime = new Date();
-    }, 1000);
-  }
-
-  ngOnDestroy() {
-    clearInterval(this.clockInterval);
-    console.log('Clock Stopped');
-  }
-
+export class ClockComponent {
+  clock$: Observable<Date> = interval(1000).pipe(map(() => new Date()));
 }
