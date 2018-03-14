@@ -46,3 +46,7 @@ keyDown$
 
 
 
+
+/** drill 1: make the angular logo draggable - hint - use mousedown->mousemove until mouseup
+ * */
+
