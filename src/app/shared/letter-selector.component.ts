@@ -3,7 +3,7 @@ import {Component, Output, EventEmitter, Input} from '@angular/core';
 @Component({
   selector: 'letter-selector',
   styles: [`ul {
-    list-style: none
+    list-style: none;
   }`, `li {
     display: inline-block;
     padding: 0 5px;

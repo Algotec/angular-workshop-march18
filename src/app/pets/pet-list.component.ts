@@ -15,15 +15,18 @@ import {PetService} from './pet.service';
   template: `
     <section>
       <h2>Pet List</h2>
+      <letter-selector [letter]="letter" (select)="letter = $event"></letter-selector>
       <ul>
-        <li *ngFor="let currPet of petService.pets | petSearch:'c'">
-          <pet-renderer  (awakeChange)="petService.toggleAwake(currPet)" [pet]="currPet"></pet-renderer>
+        <li *ngFor="let currPet of petService.pets | petSearch:letter">
+          <pet-renderer (awakeChange)="petService.toggleAwake(currPet)" [pet]="currPet"></pet-renderer>
         </li>
       </ul>
     </section>
   `
 })
 export class PetListComponent {
+  letter = 'A';
+
   constructor(public petService: PetService) {
   }
 
