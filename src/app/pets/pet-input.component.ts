@@ -5,8 +5,8 @@ import {PetModel} from './pet.model';
 @Component({
   selector: 'pet-input',
   template: `
-    <input type="text" placeholder="Pet Name" #petInput  [value]="petModel.name"/>
-    <button (click)="addPet(petInput.value)">Add Pet</button>
+    <input type="text" placeholder="Pet Name" [value]="petModel.name" (keyup)="petModel.name = $event.target.value"/>
+    <button (click)="addPet()">Add Pet</button>
   `
 })
 export class PetInputComponent {
