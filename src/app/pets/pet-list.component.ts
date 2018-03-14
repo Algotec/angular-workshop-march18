@@ -16,8 +16,8 @@ import {PetService} from './pet.service';
     <section>
       <h2>Pet List</h2>
       <ul>
-        <li *ngFor="let petName of petService.pets">
-          <span class="petName">{{petName}}</span>
+        <li *ngFor="let pet of petService.pets">
+          <span class="petName">{{pet.name}}</span>
         </li>
       </ul>
     </section>
