@@ -5,6 +5,11 @@ export class PetModel {
   name: string;
   awake: boolean;
 
+  get imgUrl(): string {
+    return `assets/pet/${this.id}.png`;
+  }
+
+
   constructor(name = '', awake = true) {
     this.name = name;
     this.awake = awake;
