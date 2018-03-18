@@ -5,6 +5,8 @@ import {AppComponent} from './app.component';
 import {PetsModule} from './pets/pets.module';
 import {SharedModule} from './shared/shared.module';
 import {TimeModule} from './time/time.module';
+import {RouterModule} from '@angular/router';
+import {appRoutes} from './app.routes';
 
 @NgModule({
   declarations: [
@@ -12,6 +14,7 @@ import {TimeModule} from './time/time.module';
   ],
   imports: [
     BrowserModule,
+    RouterModule.forRoot(appRoutes),
     SharedModule,
     PetsModule,
     TimeModule
