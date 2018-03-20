@@ -3,6 +3,7 @@ import {SharedModule} from '../shared/shared.module';
 import {ShopFrontComponent} from './shop-front.component';
 import {ShopService} from './shop.service';
 import {RouterModule, Routes} from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
 
 export const shopRoutes: Routes = [
   {
@@ -13,7 +14,7 @@ export const shopRoutes: Routes = [
 @NgModule({
   providers: [ShopService],
   declarations: [ShopFrontComponent],
-  imports: [SharedModule, RouterModule.forChild(shopRoutes)],
+  imports: [SharedModule, RouterModule.forChild(shopRoutes), HttpClientModule],
   exports: [ShopFrontComponent],
 })
 export class ShopModule {
