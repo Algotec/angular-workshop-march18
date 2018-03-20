@@ -1,7 +1,49 @@
-h1 {
-  color: darkseagreen;
+nav {
+  display: flex;
 }
-h1::after{
+
+h1 {
+  flex: 1;
+  text-align: center;
+  color: darkseagreen;
+  margin-left: -230px;
+}
+
+ul {
+  overflow: none;
+  list-style-type: none;
+}
+
+li {
+  height: 25px;
+  float: left;
+  margin-right: 0px;
+  border-right: 1px solid #aaa;
+  padding: 0 20px;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  text-decoration: none;
+  color: #ccc;
+  font: 25px/1 Helvetica, Verdana, sans-serif;
+  text-transform: uppercase;
+  transition: all 0.5s ease;
+}
+
+li a:hover {
+  color: #666;
+}
+
+li a.active {
+  font-weight: bold;
+  color: #333;
+}
+
+h1::after {
   content: " "; /* Older browser do not support empty content */
   visibility: hidden;
   display: block;
