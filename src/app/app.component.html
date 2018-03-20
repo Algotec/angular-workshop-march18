@@ -1,12 +1,19 @@
-<span style="float: right">
-  <clock></clock>
-</span>
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-    <span class="logo">
-    <img src="assets/pet/1.png"/>
+<nav>
+  <span class="logo">
+      <img src="assets/pet/1.png"/>
+    </span>
+  <ul class="menu">
+    <li>
+      <a routerLinkActive="active" [routerLink]="['pets']">Pets</a>
+    </li>
+    <li>
+      <a routerLinkActive="active" [routerLink]="['shop']">Shop</a>
+    </li>
+  </ul>
+  <h1>Welcome to {{ title }}!</h1>
+  <span style="float: right">
+    <clock></clock>
   </span>
-  </h1>
-</div>
+</nav>
+
 <router-outlet></router-outlet>
