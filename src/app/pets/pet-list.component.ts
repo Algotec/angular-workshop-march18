@@ -22,6 +22,7 @@ import {PetService} from './pet.service';
         </li>
       </ul>
     </section>
+    <pet-input></pet-input>
   `
 })
 export class PetListComponent {
