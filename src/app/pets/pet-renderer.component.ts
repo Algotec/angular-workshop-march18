@@ -14,8 +14,8 @@ import {PetModel} from './pet.model';
     }`
   ],
   template: `
-    <div class="pet-renderer">
-      <span [class.awake]="pet.awake" class="petName">{{pet.name}}</span>
+    <div class="pet-renderer" [routerLink]="[pet.id]">
+      <span  [class.awake]="pet.awake" class="petName">{{pet.name}}</span>
       <img [src]="pet.imgUrl"/>
       <div>
         <small>Time till asleep</small>
