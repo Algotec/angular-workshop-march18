@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'pets-component',
   template: `
-    <pet-list></pet-list>
-    <pet-input></pet-input>`
+    <h2>Pets Display</h2>
+    <router-outlet></router-outlet>`
 })
 export class PetsComponent {
 
