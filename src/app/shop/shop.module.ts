@@ -4,6 +4,9 @@ import {ShopFrontComponent} from './shop-front.component';
 import {ShopService} from './shop.service';
 import {RouterModule, Routes} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
+import {ShoppingCartComponent} from './shopping-cart-component';
+import {ShopListComponent} from './shop-list.component';
+import {ShopListItemRendererComponent} from './shop-item.compoent';
 
 export const shopRoutes: Routes = [
   {
@@ -13,7 +16,7 @@ export const shopRoutes: Routes = [
 
 @NgModule({
   providers: [ShopService],
-  declarations: [ShopFrontComponent],
+  declarations: [ShopFrontComponent, ShoppingCartComponent, ShopListComponent, ShopListItemRendererComponent],
   imports: [SharedModule, RouterModule.forChild(shopRoutes), HttpClientModule],
   exports: [ShopFrontComponent],
 })
