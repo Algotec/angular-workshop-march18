@@ -2,23 +2,32 @@ import {Component, Output, EventEmitter, Input} from '@angular/core';
 
 @Component({
   selector: 'letter-selector',
-  styles: [`ul {
-    list-style: none;
-  }`, `li {
-    display: inline-block;
-    padding: 0 5px;
-  }`, `.selected {
-    background-color: lightblue
-  }`],
+  styles: [`
+    mat-list.mat-list[dense] mat-list-item.mat-list-item {
+      display: inline-block;
+    }
+
+    ::ng-deep mat-list.mat-list[dense] mat-list-item.mat-list-item .mat-list-item-content {
+      padding: 0 5px;
+    }
+
+    button.mat-stroked-button {
+      min-width: 25px;
+      color: white;
+    }
+
+    button.selected {
+      background-color: lightblue
+    }`],
   template: `
-    <ul>
-      <li>
-        <button [class.selected]="letterSelected === ''" (click)="selectLetter('')">Show All</button>
-      </li>
-      <li *ngFor="let letter of letters">
-        <button [class.selected]="letter === letterSelected" (click)="selectLetter(letter)">{{letter}}</button>
-      </li>
-    </ul>
+    <mat-list dense>
+      <mat-list-item>
+        <button mat-stroked-button [class.selected]="letterSelected === ''" (click)="selectLetter('')">Show All</button>
+      </mat-list-item>
+      <mat-list-item *ngFor="let letter of letters">
+        <button mat-stroked-button [class.selected]="letter === letterSelected" (click)="selectLetter(letter)">{{letter}}</button>
+      </mat-list-item>
+    </mat-list>
   `
 })
 export class LetterSelectorComponent {

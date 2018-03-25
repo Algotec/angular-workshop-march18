@@ -13,7 +13,7 @@ import {MatIconModule} from '@angular/material/icon';
 @NgModule({
   providers: [],
   declarations: [LetterSelectorComponent],
-  imports: [CommonModule],
+  imports: [CommonModule, MatListModule, MatButtonModule, MatIconModule],
   exports: [CommonModule, FormsModule, LetterSelectorComponent, MatCardModule, MatListModule,
     MatRippleModule, MatButtonModule, MatMenuModule, MatIconModule],
 })
