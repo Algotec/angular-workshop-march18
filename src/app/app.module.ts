@@ -8,6 +8,7 @@ import {ShopModule} from './shop/shop.module';
 import {TimeModule} from './time/time.module';
 import {RouterModule} from '@angular/router';
 import {appRoutes} from './app.routes';
+import {UserAuthModule} from './userAuth/user-auth.module';
 import {MatSidenavModule, MatToolbarModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -23,6 +24,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     ShopModule,
     PetsModule,
     TimeModule,
+    UserAuthModule,
     MatSidenavModule,
     MatToolbarModule
   ],
