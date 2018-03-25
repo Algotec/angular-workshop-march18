@@ -8,7 +8,7 @@ import {IShopItem} from './shop.types';
   }`],
   template: `
     <ng-content></ng-content>
-    {{item.title}} - <span>{{item.price | currency:'USD':'symbol'}}</span>`
+    <a [routerLink]="['detail',item._id]">{{item.title}} - <span>{{item.price | currency:'USD':'symbol'}}</span></a>`
 })
 export class ShopListItemRendererComponent {
   @Input() item: IShopItem;

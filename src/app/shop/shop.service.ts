@@ -16,6 +16,11 @@ export class ShopService {
       .toPromise();
   }
 
+  get(id: number) {
+    return this.http.get<IShopItem>(ShopService.baseUrl + '/' + id)
+      .toPromise();
+  }
+
   addTOCart(item: IShopItem) {
     this.shoppingCart = [...this.shoppingCart, item];
   }

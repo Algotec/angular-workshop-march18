@@ -7,16 +7,12 @@ import {HttpClientModule} from '@angular/common/http';
 import {ShoppingCartComponent} from './shopping-cart-component';
 import {ShopListComponent} from './shop-list.component';
 import {ShopListItemRendererComponent} from './shop-item.compoent';
-
-export const shopRoutes: Routes = [
-  {
-    path: 'shop', component: ShopFrontComponent
-  }
-];
+import {ShopItemDetailsComponent} from './shop-detail.component';
+import {shopRoutes} from './shop.routes';
 
 @NgModule({
   providers: [ShopService],
-  declarations: [ShopFrontComponent, ShoppingCartComponent, ShopListComponent, ShopListItemRendererComponent],
+  declarations: [ShopFrontComponent, ShoppingCartComponent, ShopItemDetailsComponent, ShopListComponent, ShopListItemRendererComponent],
   imports: [SharedModule, RouterModule.forChild(shopRoutes), HttpClientModule],
   exports: [ShopFrontComponent],
 })
