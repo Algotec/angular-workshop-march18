@@ -11,10 +11,10 @@ import {Subscription} from 'rxjs/Subscription';
     <mat-card>
       <mat-card-header>
         <mat-card-title>{{item?.title}}</mat-card-title>
-        <img mat-card-avatar [src]="getRandomImage()"/>
+        <img mat-card-avatar [src]="shopService.getRandomImage(item?.title)"/>
       </mat-card-header>
       <mat-card-content>
-        <img mat-card-lg-image [src]="getRandomImage()">
+        <router-outlet></router-outlet>
         <h3>{{item?.price | currency:'USD':'symbol'}}</h3>
       </mat-card-content>
       <mat-card-actions>
@@ -27,14 +27,15 @@ export class ShopItemDetailsComponent implements OnInit, OnDestroy {
   item: IShopItem;
   private paramsSubscriber: Subscription;
 
-  constructor(private activeRoute: ActivatedRoute, private shopService: ShopService, private router: Router) {
+  constructor(private router: Router, private activeRoute: ActivatedRoute, public shopService: ShopService) {
   }
 
   ngOnInit() {
+    this.activeRoute.url.subscribe((e) => console.log(e));
     this.paramsSubscriber = this.activeRoute.data.pipe(
       map((data) => data['shopItem']),
     ).subscribe((item) => {
-        this.item = item;
+      this.item = item;
     });
   }
 
@@ -44,13 +45,6 @@ export class ShopItemDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  getRandomImage() {
-    let title = 'animals';
-    if (this.item) {
-      title = this.item.title.split(' ')[0].toLowerCase();
-    }
-    return `http://loremflickr.com/100/100/${title}`;
-  }
 
   buyItem() {
     this.shopService.addTOCart(this.item);
