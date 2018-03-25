@@ -5,56 +5,28 @@ nav {
 h1 {
   flex: 1;
   text-align: center;
-  color: darkseagreen;
+  color: whitesmoke;
   margin-left: -230px;
 }
 
-ul {
-  overflow: none;
-  list-style-type: none;
+.mat-list-item a {
+  color: #1dffab;
 }
 
-li {
-  height: 25px;
-  float: left;
-  margin-right: 0px;
-  border-right: 1px solid #aaa;
-  padding: 0 20px;
-}
-
-li:last-child {
-  border-right: none;
-}
-
-li a {
-  text-decoration: none;
-  color: #ccc;
-  font: 25px/1 Helvetica, Verdana, sans-serif;
-  text-transform: uppercase;
-  transition: all 0.5s ease;
-}
-
-li a:hover {
-  color: #666;
-}
-
-li a.active {
-  font-weight: bold;
-  color: #333;
-}
-
-h1::after {
-  content: " "; /* Older browser do not support empty content */
-  visibility: hidden;
-  display: block;
-  height: 0;
-  clear: both;
+.mat-list-item a.active {
+  text-decoration: underline;
+  color: #ff3f64;
 }
 
 .logo {
-  float: left;
+  margin-bottom: 10px;
 }
 
-img {
+.logo img {
+  transform: translate(0, 8px);
   width: 50px;
+}
+
+:host,mat-sidenav-container, mat-sidenav-content{
+  height: 100%;
 }

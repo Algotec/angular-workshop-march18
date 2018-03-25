@@ -1,19 +1,21 @@
-<nav>
-  <span class="logo">
-      <img src="assets/pet/1.png"/>
-    </span>
-  <ul class="menu">
-    <li>
-      <a routerLinkActive="active" [routerLink]="['pets']">Pets</a>
-    </li>
-    <li>
-      <a routerLinkActive="active" [routerLink]="['shop']">Shop</a>
-    </li>
-  </ul>
-  <h1>Welcome to {{ title }}!</h1>
-  <span style="float: right">
-    <clock></clock>
-  </span>
-</nav>
-
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+  <mat-sidenav #sideNav>
+    <mat-list>
+      <mat-list-item><a routerLinkActive="active" routerLink="pets">Pets</a></mat-list-item>
+      <mat-list-item><a routerLinkActive="active" routerLink="shop">Shop</a></mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <span class="logo">
+         <button mat-icon-button (click)="sideNav.toggle()"><mat-icon>reorder</mat-icon></button>
+        <img src="assets/pet/1.png"/>
+      </span>
+      <h1>Welcome to {{ title }}!</h1>
+      <span style="float: right">
+      <clock></clock>
+      </span>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

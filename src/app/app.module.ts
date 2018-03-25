@@ -8,18 +8,23 @@ import {ShopModule} from './shop/shop.module';
 import {TimeModule} from './time/time.module';
 import {RouterModule} from '@angular/router';
 import {appRoutes} from './app.routes';
+import {MatSidenavModule, MatToolbarModule} from '@angular/material';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     SharedModule,
     ShopModule,
     PetsModule,
-    TimeModule
+    TimeModule,
+    MatSidenavModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
