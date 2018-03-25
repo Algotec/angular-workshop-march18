@@ -57,10 +57,8 @@ export class ShopAdminItemEditComponent implements OnInit {
   ngOnInit() {
     const id = this.activateRoute.snapshot.params['id'];
     if (typeof id !== 'undefined') {
-      this.shopService.get(id).then((item: IShopItem) => {
-        this.item = item;
-        this.isEdit = true;
-      });
+      this.item = this.activateRoute.snapshot.data['shopItem'];
+      this.isEdit = true;
     }
 
 

@@ -11,9 +11,10 @@ import {ShopListComponent} from './shop-list.component';
 import {ShopListItemRendererComponent} from './shop-item.compoent';
 import {ShopItemDetailsComponent} from './shop-detail.component';
 import {shopRoutes} from './shop.routes';
+import {ShopItemResolver} from './shop-item.resolver';
 
 @NgModule({
-  providers: [ShopService],
+  providers: [ShopService, ShopItemResolver],
   declarations: [ShopFrontComponent, ShoppingCartComponent, ShopItemDetailsComponent, ShopListComponent,
     ShopListItemRendererComponent, ShopAdminItemEditComponent],
   imports: [SharedModule, RouterModule.forChild(shopRoutes), HttpClientModule, FormsModule],

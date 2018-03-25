@@ -31,19 +31,15 @@ export class ShopItemDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.paramsSubscriber = this.activeRoute.params.pipe(
-      map((params) => params['id']),
-      finalize(() => console.log('finished route sub'))
-    ).subscribe((id) => {
-      this.shopService.get(id).then(item => {
+    this.paramsSubscriber = this.activeRoute.data.pipe(
+      map((data) => data['shopItem']),
+    ).subscribe((item) => {
         this.item = item;
-      });
     });
   }
 
   ngOnDestroy() {
     if (this.paramsSubscriber) {
-      console.log('finished via ngOnDestroy');
       this.paramsSubscriber.unsubscribe();
     }
   }
