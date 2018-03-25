@@ -1,6 +1,6 @@
 <mat-sidenav-container>
   <mat-sidenav #sideNav>
-    <mat-list>
+    <mat-list (click)="sideNav.close()">
       <mat-list-item><a routerLinkActive="active" routerLink="pets">Pets</a></mat-list-item>
       <mat-list-item><a routerLinkActive="active" routerLink="shop">Shop</a></mat-list-item>
     </mat-list>
