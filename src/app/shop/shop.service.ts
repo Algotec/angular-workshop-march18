@@ -31,6 +31,18 @@ export class ShopService {
     this.shoppingCart = [...this.shoppingCart, item];
   }
 
+  addItemToShop(item) {
+    return this.http.post(ShopService.baseUrl, item).toPromise();
+  }
+
+  editShopItem(id, data) {
+    return this.http.put(ShopService.baseUrl + '/' + id, {...data, _id: id}).toPromise();
+  }
+
+  removeItemFromShop(id) {
+    return this.http.delete(ShopService.baseUrl + '/' + id).toPromise().then(() => this.getItems());
+  }
+
   removeFromCart(index: number) {
     this.shoppingCart = [...this.shoppingCart.slice(0, index), ...this.shoppingCart.slice(index + 1)];
   }
