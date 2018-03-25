@@ -42,10 +42,10 @@ export class ShopItemDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // if (this.paramsSubscriber) {
-    //   console.log('finished via ngOnDestroy');
-    //   this.paramsSubscriber.unsubscribe();
-    // }
+    if (this.paramsSubscriber) {
+      console.log('finished via ngOnDestroy');
+      this.paramsSubscriber.unsubscribe();
+    }
   }
 
   getRandomImage() {
