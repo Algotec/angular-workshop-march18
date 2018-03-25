@@ -8,7 +8,7 @@ import {ShopItemBasicComponent} from './shop-item-details-basic.component';
 import {ShopItemExtraComponent} from './shop-item-details-extra.component';
 export const shopRoutes: Route[] = [
   {
-    path: 'shop', children: [
+    path: '', children: [
       {path: '', component: ShopFrontComponent},
       {path: 'detail/:id', component: ShopItemDetailsComponent, resolve: {shopItem: ShopItemResolver},
         children: [
