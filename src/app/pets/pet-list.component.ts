@@ -3,28 +3,22 @@ import {PetService} from './pet.service';
 
 @Component({
   selector: 'pet-list',
-  styles: [`li {
-    list-style: none;
-    display: inline-block;
-    margin: 10px;
-    padding: 5px;
-    text-align: center;
-    border: 1px solid #aaa;
-    border-radius: 4px;
+  styles: [`.petList {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(6, 1fr);
   }`],
   template: `
     <mat-card>
       <mat-card-header>
         <mat-card-title><h2>Pets List</h2></mat-card-title>
+        <letter-selector [letter]="letter" (select)="letter = $event"></letter-selector>
       </mat-card-header>
-
-
-      <letter-selector [letter]="letter" (select)="letter = $event"></letter-selector>
-      <ul>
-        <li *ngFor="let currPet of petService.pets | petSearch:letter">
+      <mat-card-content class="petList">
+        <ng-container *ngFor="let currPet of petService.pets | petSearch:letter">
           <pet-renderer (feed)="petService.feed(currPet)" (awakeChange)="petService.toggleAwake(currPet)" [pet]="currPet"></pet-renderer>
-        </li>
-      </ul>
+        </ng-container>
+      </mat-card-content>
       <mat-card-actions>
         <pet-input></pet-input>
       </mat-card-actions>

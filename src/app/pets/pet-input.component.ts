@@ -5,8 +5,11 @@ import {PetModel} from './pet.model';
 @Component({
   selector: 'pet-input',
   template: `
-   <h4>Add Pet</h4> <input type="text" placeholder="Pet Name" [(ngModel)]="petModel.name"/>
-    <button (click)="addPet()">Add Pet</button>
+    <h4>Add Pet</h4>
+    <mat-form-field>
+      <input matInput type="text" placeholder="Pet Name" [(ngModel)]="petModel.name"/>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="addPet()">Add Pet</button>
   `
 })
 export class PetInputComponent {

@@ -1,23 +1,33 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { PetModel } from './pet.model';
-import { PetService } from './pet.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {PetModel} from './pet.model';
+import {PetService} from './pet.service';
 
 @Component({
   selector: 'pet-details',
   template: `
-    <div class="pet-details">
-      <h1 [class.awake]="pet.awake" class="petName">{{pet.name}}</h1>
-      <img [src]="pet.imgUrl"/>
-      <div>
-        <small>Time till asleep</small>
-        <countdown [to]="pet.nextFeedAt" (due)="petService.toggleAwake(pet)"></countdown>
-      </div>
-      <button (click)="petService.feed(pet)">Feed</button>
-      <a routerLink="../">back to list</a>
-    </div>
+    <mat-card class="pet-details">
+      <mat-card-header>
+        <mat-card-title>
+          <h1 [class.awake]="pet.awake">{{pet.name}}</h1>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <img [src]="pet.imgUrl"/>
+        <div>
+          <small>Time till asleep</small>
+          <countdown [to]="pet.nextFeedAt" (due)="petService.toggleAwake(pet)"></countdown>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color='accent' (click)="petService.feed(pet)">Feed</button>
+        <a mat-raised-button routerLink="../">back to list</a>
+      </mat-card-actions>
+    </mat-card>
   `,
-  styles: []
+  styles: [`img {
+    max-height: 300px;
+  }`]
 })
 export class PetDetailsComponent implements OnInit {
   pet: PetModel;

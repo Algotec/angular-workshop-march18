@@ -8,6 +8,7 @@ import {MatRippleModule} from '@angular/material/core';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule, MatFormFieldModule} from '@angular/material';
 
 
 @NgModule({
@@ -15,7 +16,7 @@ import {MatIconModule} from '@angular/material/icon';
   declarations: [LetterSelectorComponent],
   imports: [CommonModule, MatListModule, MatButtonModule, MatIconModule],
   exports: [CommonModule, FormsModule, LetterSelectorComponent, MatCardModule, MatListModule,
-    MatRippleModule, MatButtonModule, MatMenuModule, MatIconModule],
+    MatRippleModule, MatButtonModule, MatMenuModule, MatIconModule, MatInputModule, MatFormFieldModule],
 })
 export class SharedModule {
 }

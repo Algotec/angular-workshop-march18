@@ -9,20 +9,32 @@ import {PetModel} from './pet.model';
       max-height: 100px;
     }
 
+    mat-card-actions, mat-card-content {
+      text-align: center;
+    }
+
     .awake {
       color: #ff9e3f;
     }`
   ],
   template: `
-    <div class="pet-renderer" [routerLink]="[pet.id]">
-      <span  [class.awake]="pet.awake" class="petName">{{pet.name}}</span>
-      <img [src]="pet.imgUrl"/>
-      <div>
-        <small>Time till asleep</small>
-        <countdown [to]="pet.nextFeedAt" (due)="petAwakeToggle()"></countdown>
-      </div>
-      <button (click)="feedPet($event)">Feed</button>
-    </div>`
+    <mat-card class="pet-renderer" [routerLink]="[pet.id]">
+      <mat-card-header>
+        <mat-card-title>
+          <span [class.awake]="pet.awake" class="petName">{{pet.name}}</span>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <img [src]="pet.imgUrl"/>
+        <div>
+          <small>Time till asleep</small>
+          <countdown [to]="pet.nextFeedAt" (due)="petAwakeToggle()"></countdown>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="accent" (click)="feedPet($event)">Feed</button>
+      </mat-card-actions>
+    </mat-card>`
 })
 export class PetRendererComponent {
   @Input() pet: PetModel;
@@ -33,10 +45,10 @@ export class PetRendererComponent {
     this.awakeChange.emit();
   }
 
-  feedPet($event:MouseEvent) {
-   $event.stopPropagation();
-   this.feed.emit(this.pet);
-   return false;
+  feedPet($event: MouseEvent) {
+    $event.stopPropagation();
+    this.feed.emit(this.pet);
+    return false;
   }
 
 }
