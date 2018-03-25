@@ -1,28 +1,48 @@
-import {Component, Input, ChangeDetectionStrategy, Output, EventEmitter} from '@angular/core';
+import {Component, Input, ChangeDetectionStrategy, OnChanges, Output, EventEmitter, ViewChild} from '@angular/core';
 import {IShopItem} from './shop.types';
+import {MatRipple} from '@angular/material/core';
 
 @Component({
   selector: 'shopping-cart',
-  styles: [`li {
-    list-style: repeating-linear-gradient(to left, #17aa46, #5e8fdd, #fefefe)
+  styles: [`mat-list[dense] /deep/ .mat-list-item {
+    padding-left: 0;
+    height: 25px;
   }`],
   // changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<h2>Shopping Cart</h2>
-  <ul>
-    <li *ngFor="let item of shoppingCart;let i = index">{{item.title}}
-      <button (click)="removeFromCart.emit(i)">X</button>
-    </li>
-
-  </ul>
-  <span>Total Sum:{{sum}}</span>`
+  template: `
+    <mat-card mat-ripple>
+      <mat-card-header>
+        <mat-icon mat-card-avatar>shopping basket</mat-icon>
+        <mat-card-title>Shopping Cart
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-list dense>
+          <mat-list-item *ngFor="let item of shoppingCart;let i = index">
+            <button mat-icon-button color="warn" (click)="removeFromCart.emit(i)">
+              <mat-icon>clear</mat-icon>
+            </button>
+            {{item.title}}
+          </mat-list-item>
+        </mat-list>
+        <mat-card-footer>Total Sum:{{sum}}</mat-card-footer>
+      </mat-card-content>
+    </mat-card>`
 })
-export class ShoppingCartComponent {
+export class ShoppingCartComponent implements OnChanges {
   @Input() shoppingCart: IShopItem[] = [];
   @Output() removeFromCart = new EventEmitter<number>();
+
+  @ViewChild(MatRipple) ripple;
 
   get sum() {
     // console.log('sum called');
     return this.shoppingCart.reduce((acc, item) => acc += (+item.price), 0);
   }
 
+  ngOnChanges(changes) {
+    if (changes.shoppingCart) {
+      this.ripple.launch(100, 50);
+    }
+  }
 }

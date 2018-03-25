@@ -10,12 +10,17 @@ import {IShopItem} from './shop.types';
       grid-template-columns: 1fr 200px;
     }
 
-    `],
-  template: `<h1>Shop</h1>
-  <section class="shop-container">
-    <shop-list [items]="items" (purchase)="shopService.addTOCart($event)"></shop-list>
-    <shopping-cart [shoppingCart]="shopService.getCart()" (removeFromCart)="shopService.removeFromCart($event)"></shopping-cart>
-  </section>`
+  `],
+  template: `
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title><h1>Shop</h1></mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="shop-container">
+        <shop-list [items]="items" (purchase)="shopService.addTOCart($event)"></shop-list>
+        <shopping-cart [shoppingCart]="shopService.getCart()" (removeFromCart)="shopService.removeFromCart($event)"></shopping-cart>
+      </mat-card-content>
+    </mat-card>\``
 })
 export class ShopFrontComponent implements OnInit {
 
