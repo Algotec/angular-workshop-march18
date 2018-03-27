@@ -63,3 +63,12 @@ if you have trouble you can see my first commit (c01940c) for an example which i
 do the same for pet’s module components
 
 
+## Day 3
+
+### Exercise  1 - make shop details component
+Allow the user to click on shop items and reach a page where the item details are displayed 
+(name, price - you can add a random picture if you like ;-)
+  in the bottom of the page add a "back to list button"
+  
+  
+ 
