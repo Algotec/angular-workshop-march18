@@ -10,13 +10,14 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule, MatFormFieldModule} from '@angular/material';
 import {RouterModule} from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
   providers: [],
   declarations: [LetterSelectorComponent],
   imports: [CommonModule, MatListModule, MatButtonModule, MatIconModule],
-  exports: [CommonModule, FormsModule, LetterSelectorComponent, MatCardModule, MatListModule,
+  exports: [CommonModule, HttpClientModule, FormsModule, LetterSelectorComponent, MatCardModule, MatListModule,
     MatRippleModule, MatButtonModule, MatMenuModule, MatIconModule, MatInputModule, MatFormFieldModule, RouterModule],
 })
 export class SharedModule {
