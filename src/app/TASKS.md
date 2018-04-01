@@ -87,3 +87,11 @@ handle the submit event
  --> get all users
  --> check if there is one with same username& password
   make sure shop admin is protected.
+  
+### Exercise 3 - more user details
+
+expand the user registration to accommodate all the details and rules found in the new user.model.ts file.
+change the HTML to include all form fields and validation logic + error messages
+you can use either template or model driven forms, password retype is a custom validation which can be done on 
+either control or group level.
+
