@@ -4,8 +4,16 @@ import {map, tap} from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
+  get isLoggedIn(): boolean {
+   // console.log('touched'); // to explain the problem of using such getter/setters, show angular-async-local-storage
+    return self.localStorage.getItem('loggedIn') === 'true';
+  }
+
+  set isLoggedIn(value: boolean) {
+    self.localStorage.setItem('loggedIn', value.toString());
+  }
+
   static baseUrl = 'http://localhost:3003/data/users';
-  isLoggedIn = false;
   currentUser: string;
 
   constructor(private http: HttpClient) {
