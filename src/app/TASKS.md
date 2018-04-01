@@ -70,5 +70,20 @@ Allow the user to click on shop items and reach a page where the item details ar
 (name, price - you can add a random picture if you like ;-)
   in the bottom of the page add a "back to list button"
   
-  
- 
+
+### Exercise 2 - Make the shop protected by username and password
+
+#### step1 - make sure the registeration.component works as a form - 
+add necessary angular forms primitives to allow
+collecting the form values - make the username required and password validated as atleast 5 chars.
+
+#### step 2 - make a route for registration 
+add a link from login page or from top bar)- you will need another component to wrap the registeration component to provide the title input and 
+handle the submit event
+#### step 3 - improve service and connect everything
+ allow checking/adding users via the AuthService - either do it in-memory or via the REST server
+ 'http://localhost:3003/data/users'
+ use POST for registeration and for login use the following funny "logic": 
+ --> get all users
+ --> check if there is one with same username& password
+  make sure shop admin is protected.
