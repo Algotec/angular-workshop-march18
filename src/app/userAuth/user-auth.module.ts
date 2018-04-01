@@ -5,14 +5,17 @@ import {AuthService} from './auth.service';
 import {SharedModule} from '../shared/shared.module';
 import {RouterModule, Routes} from '@angular/router';
 import {UserRegistrationComponent} from './registeration.component';
+import {RegistrationContainerComponent} from './registration-container.component';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'registration', component: RegistrationContainerComponent}
+
 ];
 
 @NgModule({
   providers: [AuthGuard, AuthService],
-  declarations: [LoginComponent, UserRegistrationComponent],
+  declarations: [LoginComponent, UserRegistrationComponent, RegistrationContainerComponent],
   imports: [SharedModule, RouterModule.forChild(routes)],
   exports: [LoginComponent],
 })

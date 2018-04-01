@@ -13,7 +13,7 @@
       </span>
       <h1>Welcome to {{ title }}!</h1>
       <span style="float: right">
-        <button routerLink="login" class="loginLink" mat-raised-button color="warn">LOGIN</button>
+        <button routerLink="login" class="loginLink" mat-raised-button color="warn">{{ authService.isLoggedIn ? 'PROFILE':'LOGIN' }}</button>
       <clock></clock>
       </span>
     </mat-toolbar>

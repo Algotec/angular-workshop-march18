@@ -1,52 +1,68 @@
-import {Component}   from '@angular/core';
-import {Router, NavigationExtras}      from '@angular/router';
-import {AuthService} from "./auth.service";
+import {Component} from '@angular/core';
+import {Router, NavigationExtras} from '@angular/router';
+import {AuthService} from './auth.service';
 
 @Component({
-	template: `
-    <h2>LOGIN</h2>
+  styles: [`:host {
+    padding: 25px;
+    display: block;
+  }`],
+  template: `
+    <user-registration *ngIf="!authService.isLoggedIn;else userblock" title="Login" (formSubmit)="login($event)"></user-registration>
     <p>{{message}}</p>
+    <ng-template #userblock>
+      {{authService.currentUser}}
+    </ng-template>
     <p>
-      <button md-raised-button color="warn" (click)="login()"  *ngIf="!authService.isLoggedIn">Login</button>
-      <button md-raised-button color="warn" (click)="logout()" *ngIf="authService.isLoggedIn">Logout</button>
+      <button mat-raised-button color="warn" (click)="logout()" *ngIf="authService.isLoggedIn">Logout</button>
+      <button mat-raised-button color="warn" (click)="gotoRegistration()" *ngIf="!authService.isLoggedIn">Register</button>
     </p>`
 })
 export class LoginComponent {
-	message: string;
+  message: string;
 
-	constructor(public authService: AuthService, public router: Router) {
-		this.setMessage();
-	}
+  constructor(public authService: AuthService, public router: Router) {
+    this.setMessage();
+  }
 
-	setMessage() {
-		this.message = 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
-	}
+  setMessage(actionSuccessValue?) {
+    if (typeof actionSuccessValue !== 'undefined' && actionSuccessValue === false) {
+      this.message = 'Login Failed - check username and password';
+    } else {
+      this.message = 'Logged ' + (this.authService.isLoggedIn ? 'in' : 'out');
+    }
+  }
 
-	login() {
-		this.message = 'Trying to log in ...';
+  login(credentials) {
+    this.message = 'Trying to log in ...';
 
-		this.authService.login().subscribe(() => {
-			this.setMessage();
-			if (this.authService.isLoggedIn) {
-				// Get the redirect URL from our auth service
-				// If no redirect has been set, use the default
-				let redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/';
+    this.authService.login(credentials).subscribe((suceess) => {
+      this.setMessage(suceess);
+      if (this.authService.isLoggedIn) {
+        // Get the redirect URL from our auth service
+        // If no redirect has been set, use the default
+        const redirect = this.authService.redirectUrl ? this.authService.redirectUrl : '/';
 
-				// Redirect the user but keep params
-				// 				let navigationExtras: NavigationExtras = {
-				// 					preserveQueryParams: true,
-				// 					preserveFragment: true
-				// 				};
-				//
-				// 				this.router.navigate([redirect], navigationExtras);
-				this.router.navigate([redirect]);
-			}
-		});
-	}
+        // Redirect the user but keep params
+        // 				let navigationExtras: NavigationExtras = {
+        // 					preserveQueryParams: true,
+        // 					preserveFragment: true
+        // 				};
+        //
+        // 				this.router.navigate([redirect], navigationExtras);
+        this.router.navigate([redirect]);
+      }
+    });
+  }
 
-	logout() {
-		this.authService.logout();
-		this.setMessage();
-	}
+  gotoRegistration() {
+    this.router.navigate(['registration']);
+
+  }
+
+  logout() {
+    this.authService.logout();
+    this.setMessage();
+  }
 }
 
