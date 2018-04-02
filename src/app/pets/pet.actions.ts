@@ -26,4 +26,4 @@ export class ToggleAwakeAction implements Action {
   }
 }
 
-export type all = AddPetAction | FeedPetAction;
+export type all = AddPetAction | FeedPetAction | ToggleAwakeAction;
