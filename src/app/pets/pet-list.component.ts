@@ -15,7 +15,7 @@ import {PetService} from './pet.service';
         <letter-selector [letter]="letter" (select)="letter = $event"></letter-selector>
       </mat-card-header>
       <mat-card-content class="petList">
-        <ng-container *ngFor="let currPet of petService.pets | petSearch:letter">
+        <ng-container *ngFor="let currPet of petService.pets$|async | petSearch:letter">
           <pet-renderer (feed)="petService.feed(currPet)" (awakeChange)="petService.toggleAwake(currPet)" [pet]="currPet"></pet-renderer>
         </ng-container>
       </mat-card-content>

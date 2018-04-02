@@ -1,25 +1,27 @@
 import {PetModel} from './pet.model';
+import {Observable} from 'rxjs/Observable';
+import {IAppState} from '../app.reducers';
+import {Store} from '@ngrx/store';
+import {AddPetAction, FeedPetAction, ToggleAwakeAction} from './pet.actions';
+import {Injectable} from '@angular/core';
+
+@Injectable()
 export class PetService {
+  constructor(private store: Store<IAppState>) {
+  }
 
-  public pets: PetModel[] = [
-    new PetModel('Avsha'), new PetModel('Abulele'), new PetModel('AvAv'),
-    new PetModel('Banian'), new PetModel('Baba'), new PetModel('Basta'),
-    new PetModel('Craco'), new PetModel('Charli'), new PetModel('Chompi')];
-
+  public pets$: Observable<PetModel[]> = this.store.select('pets', 'petList');
 
   addPet(pet: PetModel) {
-    this.pets = [...this.pets, pet];
-    console.log('pet added', this.pets);
+    this.store.dispatch(new AddPetAction(pet));
   }
 
   feed(pet: PetModel) {
-    pet.feed();
-    this.pets = [...this.pets];
+    this.store.dispatch(new FeedPetAction(pet.id));
   }
 
-  toggleAwake(pet) {
-    pet.toggle();
-    // not a must for now, but keep this for when your pipe will filter by awake..
-    this.pets = [...this.pets];
+  toggleAwake(pet: PetModel) {
+    this.store.dispatch(new ToggleAwakeAction(pet.id));
+
   }
 }

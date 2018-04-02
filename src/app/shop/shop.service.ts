@@ -56,7 +56,7 @@ export class ShopService {
     return this.shoppingCart;
   }
 
-  getRandomImage(title = 'pets') {
+  getRandomImage(title = 'pets$') {
     title = title.split(' ')[0].toLowerCase();
     return `http://loremflickr.com/100/100/${title}`;
   }
