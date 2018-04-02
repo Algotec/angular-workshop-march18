@@ -95,3 +95,11 @@ change the HTML to include all form fields and validation logic + error messages
 you can use either template or model driven forms, password retype is a custom validation which can be done on 
 either control or group level.
 
+
+## Day 4
+
+### Exercise  1 - convert shop state&actions to use the store
+
+##### step 1 write the actions and interface for state
+##### step 2 write the reducer, services dispatch action
+##### step 3 refactor state from services into the to store and use in components via observable api 
