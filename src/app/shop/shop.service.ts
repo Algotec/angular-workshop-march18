@@ -31,7 +31,7 @@ export class ShopService {
     this.shoppingCart = [...this.shoppingCart, item];
   }
 
-  addItemToShop(item) {
+  addItemToShop(item: IShopItem) {
     return this.http.post(ShopService.baseUrl, item).toPromise();
   }
 
