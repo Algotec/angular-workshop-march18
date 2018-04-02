@@ -2,11 +2,13 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {PetModel} from './pet.model';
 import {PetService} from './pet.service';
+import {map, switchMap} from 'rxjs/operators';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'pet-details',
   template: `
-    <mat-card class="pet-details">
+    <mat-card class="pet-details" *ngIf="pet$|async as pet">
       <mat-card-header>
         <mat-card-title>
           <h1 [class.awake]="pet.awake">{{pet.name}}</h1>
@@ -30,10 +32,19 @@ import {PetService} from './pet.service';
   }`]
 })
 export class PetDetailsComponent implements OnInit {
-  pet: PetModel;
+  pet$: Observable<PetModel>;
 
   constructor(private activatedRoute: ActivatedRoute, public petService: PetService) {
-    this.pet = this.petService.pets.find((pet) => pet.id === parseInt(this.activatedRoute.snapshot.params['id'], 10));
+    this.pet$ = this.activatedRoute.params
+      .pipe(
+        map((params) => params.id),
+        switchMap((id) =>
+          this.petService.pets$
+            .pipe(
+              map((pets) => pets.find((pet) => pet.id === parseInt(id, 10))))
+        )
+      );
+
   }
 
   ngOnInit() {

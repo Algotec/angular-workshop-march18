@@ -6,7 +6,18 @@ export interface PetsState {
   petList: PetModel[];
 }
 
-export const petsReducer: ActionReducer<PetsState> = function PetsReducer(state: PetsState, Action: PetActions.all) {
+export const PetsInitialState: PetsState = {
+  petList: [
+    new PetModel('Avsha'), new PetModel('Abulele'), new PetModel('AvAv'),
+    new PetModel('Banian'), new PetModel('Baba'), new PetModel('Basta'),
+    new PetModel('Craco'), new PetModel('Charli'), new PetModel('Chompi')]
+};
 
+export const petsReducer: ActionReducer<PetsState> = function PetsReducer(state: PetsState = PetsInitialState, action: PetActions.all) {
+  switch (action.type) {
+    case PetActions.ADD_PET:
+      state.petList = [...state.petList, action.pet];
+      break;
+  }
   return state;
 };
