@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LetterSelectorComponent} from './letter-selector.component';
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
@@ -17,7 +17,7 @@ import {HttpClientModule} from '@angular/common/http';
   providers: [],
   declarations: [LetterSelectorComponent],
   imports: [CommonModule, MatListModule, MatButtonModule, MatIconModule],
-  exports: [CommonModule, HttpClientModule, FormsModule, LetterSelectorComponent, MatCardModule, MatListModule,
+  exports: [CommonModule, HttpClientModule, FormsModule, ReactiveFormsModule, LetterSelectorComponent, MatCardModule, MatListModule,
     MatRippleModule, MatButtonModule, MatMenuModule, MatIconModule, MatInputModule, MatFormFieldModule, RouterModule],
 })
 export class SharedModule {

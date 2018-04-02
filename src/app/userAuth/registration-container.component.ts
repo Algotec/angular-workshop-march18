@@ -5,7 +5,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'registration-container-component',
   template: `
-    <user-registration title="Registration" (formSubmit)="handleForm($event)"></user-registration>`
+    <user-form title="Registration" (formSubmit)="handleForm($event)"></user-form>`
 })
 
 export class RegistrationContainerComponent {

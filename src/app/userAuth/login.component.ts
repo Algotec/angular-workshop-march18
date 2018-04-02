@@ -8,7 +8,7 @@ import {AuthService} from './auth.service';
     display: block;
   }`],
   template: `
-    <user-registration *ngIf="!authService.isLoggedIn;else userblock" title="Login" (formSubmit)="login($event)"></user-registration>
+    <user-form [loginOnly]="true" *ngIf="!authService.isLoggedIn;else userblock" title="Login" (formSubmit)="login($event)"></user-form>
     <p>{{message}}</p>
     <ng-template #userblock>
       {{authService.currentUser}}
