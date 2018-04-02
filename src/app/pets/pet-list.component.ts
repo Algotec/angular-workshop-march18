@@ -1,8 +1,9 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {PetService} from './pet.service';
 
 @Component({
   selector: 'pet-list',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [`.petList {
     display: grid;
     grid-gap: 20px;
