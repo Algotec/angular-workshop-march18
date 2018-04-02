@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {userFieldsValidationSchema} from './user.model';
 import {EqualValidator} from '../shared/validateEqual.directive';
+import {DoesUsernameExistsValidator} from './doesUsernameExistsValidator';
+
 function matchEqualValidator(originKey: string, matchingKey: string) {
   return function (controlGroup: FormControl) {
     const originControl = controlGroup.get(originKey);
@@ -33,7 +35,9 @@ function matchEqualValidator(originKey: string, matchingKey: string) {
         <mat-card-content>
           <mat-form-field>
             <input matInput formControlName='username' placeholder="Username"/>
+            <mat-hint *ngIf="userForm.get('username')?.pending">Username is being checked....</mat-hint>
             <mat-error *ngIf="hasError('username','required')">Username is required</mat-error>
+            <mat-error *ngIf="hasError('username','usernameExists')">Username already exists</mat-error>
           </mat-form-field>
           <mat-form-field>
             <input matInput type="password" formControlName='password' placeholder="Password"/>
@@ -70,15 +74,12 @@ function matchEqualValidator(originKey: string, matchingKey: string) {
         </mat-card-actions>
       </mat-card>
     </form>
-    <pre>
-      {{userForm.controls['repeat_password']?.errors | json }}
-    </pre>
   `
 })
 export class UserRegistrationComponent implements OnInit {
   private userForm: FormGroup;
 
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: FormBuilder, private doesUsernameExistsValidator: DoesUsernameExistsValidator) {
   }
 
   private initialFieldsDescriptor = {
@@ -93,15 +94,14 @@ export class UserRegistrationComponent implements OnInit {
 
   ngOnInit() {
     this.userForm = this.fb.group((this.loginOnly) ? this.initialFieldsDescriptor : {
-      ...this.initialFieldsDescriptor, ...{
-        password: ['', userFieldsValidationSchema.password.concat([EqualValidator.validator('repeat_password', true)])],
-        repeat_password: ['', userFieldsValidationSchema.repeat_password.concat([EqualValidator.validator('password')])],
-        address: this.fb.group({
-          street: ['', userFieldsValidationSchema.address_street],
-          city: ['', userFieldsValidationSchema.address_city],
-          zip: ['', userFieldsValidationSchema.address_zip]
-        })
-      }
+      username: ['', userFieldsValidationSchema.username, [this.doesUsernameExistsValidator.validate]],
+      password: ['', userFieldsValidationSchema.password.concat([EqualValidator.validator('repeat_password', true)])],
+      repeat_password: ['', userFieldsValidationSchema.repeat_password.concat([EqualValidator.validator('password')])],
+      address: this.fb.group({
+        street: ['', userFieldsValidationSchema.address_street],
+        city: ['', userFieldsValidationSchema.address_city],
+        zip: ['', userFieldsValidationSchema.address_zip]
+      })
     });
   }
 
