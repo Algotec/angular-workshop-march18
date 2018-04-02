@@ -11,6 +11,13 @@ import {MatSidenavModule, MatToolbarModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {StoreModule} from '@ngrx/store';
 import {appReducers} from './app.reducers';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {environment} from '../environments/environment';
+import {
+  StoreRouterConnectingModule,
+  RouterStateSerializer,
+} from '@ngrx/router-store';
+import {CustomRouterStateSerializer} from './shared/routerSerializer';
 
 @NgModule({
   declarations: [
@@ -26,9 +33,20 @@ import {appReducers} from './app.reducers';
     UserAuthModule,
     MatSidenavModule,
     MatToolbarModule,
-    StoreModule.forRoot(appReducers)
+    StoreModule.forRoot(appReducers),
+    StoreRouterConnectingModule.forRoot({
+      /*
+        They stateKey defines the name of the state used by the router-store reducer.
+        This matches the key defined in the map of reducers
+      */
+      stateKey: 'router',
+    }),
+    StoreDevtoolsModule.instrument({
+      name: 'Algotec Angular Workshop demo',
+      logOnly: environment.production,
+    })
   ],
-  providers: [],
+  providers: [{provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},],
   bootstrap: [AppComponent]
 })
 export class AppModule {
