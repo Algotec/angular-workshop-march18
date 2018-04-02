@@ -36,14 +36,13 @@ function matchEqualValidator(originKey: string, matchingKey: string) {
             <mat-error *ngIf="hasError('username','required')">Username is required</mat-error>
           </mat-form-field>
           <mat-form-field>
-            <input matInput type="password" validateEqual="repeat_password" reverse="true" formControlName='password'
-                   placeholder="Password"/>
+            <input matInput type="password" formControlName='password' placeholder="Password"/>
             <mat-error *ngIf="hasError('password','required')">Password is required</mat-error>
             <mat-error *ngIf="hasError('password','minlength')">Password of Minimum length 5 characters is required</mat-error>
           </mat-form-field>
           <ng-container *ngIf="!loginOnly">
             <mat-form-field>
-              <input matInput type="password" formControlName="repeat_password" validateEqual="password" placeholder="Retype Password"/>
+              <input matInput type="password" formControlName="repeat_password" placeholder="Retype Password"/>
               <mat-error *ngIf="hasError('repeat_password','minlength')">Password of Minimum length 5 characters is required</mat-error>
               <mat-error *ngIf="hasError('repeat_password','validateEqual')">Passwords do not match</mat-error>
             </mat-form-field>
@@ -95,14 +94,15 @@ export class UserRegistrationComponent implements OnInit {
   ngOnInit() {
     this.userForm = this.fb.group((this.loginOnly) ? this.initialFieldsDescriptor : {
       ...this.initialFieldsDescriptor, ...{
-        repeat_password: ['', userFieldsValidationSchema.repeat_password],
+        password: ['', userFieldsValidationSchema.password.concat([EqualValidator.validator('repeat_password', true)])],
+        repeat_password: ['', userFieldsValidationSchema.repeat_password.concat([EqualValidator.validator('password')])],
         address: this.fb.group({
           street: ['', userFieldsValidationSchema.address_street],
           city: ['', userFieldsValidationSchema.address_city],
           zip: ['', userFieldsValidationSchema.address_zip]
         })
       }
-    }, (this.loginOnly) ? {} : {validator: matchEqualValidator('password', 'repeat_password')});
+    });
   }
 
   hasError(controlPath: string, errorName: string) {
