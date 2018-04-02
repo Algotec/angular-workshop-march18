@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {userFieldsValidationSchema} from './user.model';
-
+import {EqualValidator} from '../shared/validateEqual.directive';
 function matchEqualValidator(originKey: string, matchingKey: string) {
   return function (controlGroup: FormControl) {
     const originControl = controlGroup.get(originKey);
@@ -36,15 +36,16 @@ function matchEqualValidator(originKey: string, matchingKey: string) {
             <mat-error *ngIf="hasError('username','required')">Username is required</mat-error>
           </mat-form-field>
           <mat-form-field>
-            <input matInput type="password" formControlName='password' placeholder="Password"/>
+            <input matInput type="password" validateEqual="repeat_password" reverse="true" formControlName='password'
+                   placeholder="Password"/>
             <mat-error *ngIf="hasError('password','required')">Password is required</mat-error>
             <mat-error *ngIf="hasError('password','minlength')">Password of Minimum length 5 characters is required</mat-error>
           </mat-form-field>
           <ng-container *ngIf="!loginOnly">
             <mat-form-field>
-              <input matInput type="password" formControlName="repeat_password" placeholder="Retype Password"/>
+              <input matInput type="password" formControlName="repeat_password" validateEqual="password" placeholder="Retype Password"/>
               <mat-error *ngIf="hasError('repeat_password','minlength')">Password of Minimum length 5 characters is required</mat-error>
-              <mat-error *ngIf="hasError('repeat_password','matchingEquals')">Passwords do not match</mat-error>
+              <mat-error *ngIf="hasError('repeat_password','validateEqual')">Passwords do not match</mat-error>
             </mat-form-field>
             <mat-divider></mat-divider>
             <div formGroupName="address">
@@ -70,6 +71,9 @@ function matchEqualValidator(originKey: string, matchingKey: string) {
         </mat-card-actions>
       </mat-card>
     </form>
+    <pre>
+      {{userForm.controls['repeat_password']?.errors | json }}
+    </pre>
   `
 })
 export class UserRegistrationComponent implements OnInit {

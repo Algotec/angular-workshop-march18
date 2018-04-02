@@ -11,14 +11,15 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule, MatFormFieldModule} from '@angular/material';
 import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
+import {EqualValidator} from 'app/shared/validateEqual.directive';
 
 
 @NgModule({
   providers: [],
-  declarations: [LetterSelectorComponent],
+  declarations: [LetterSelectorComponent, EqualValidator],
   imports: [CommonModule, MatListModule, MatButtonModule, MatIconModule],
   exports: [CommonModule, HttpClientModule, FormsModule, ReactiveFormsModule, LetterSelectorComponent, MatCardModule, MatListModule,
-    MatRippleModule, MatButtonModule, MatMenuModule, MatIconModule, MatInputModule, MatFormFieldModule, RouterModule],
+    MatRippleModule, MatButtonModule, MatMenuModule, MatIconModule, MatInputModule, MatFormFieldModule, RouterModule, EqualValidator],
 })
 export class SharedModule {
 }
