@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {PetService} from './pet.service';
-import {transition, trigger, animate, style} from '@angular/animations';
+import {transition, trigger, animate, style, state, keyframes} from '@angular/animations';
 
 @Component({
   selector: 'pet-list',
@@ -9,6 +9,7 @@ import {transition, trigger, animate, style} from '@angular/animations';
     mat-card-header {
       display: block;
     }
+
     .petList {
       display: grid;
       grid-gap: 20px;
@@ -24,7 +25,8 @@ import {transition, trigger, animate, style} from '@angular/animations';
       </mat-card-header>
       <mat-card-content class="petList">
         <ng-container *ngFor="let currPet of petService.pets$|async | petSearch:letter">
-          <pet-renderer @flyInOut (feed)="petService.feed(currPet)" (awakeChange)="petService.toggleAwake(currPet)"
+          <pet-renderer @flyInOut [@petBounce]="currPet.awake.toString()" (feed)="petService.feed(currPet)"
+                        (awakeChange)="petService.toggleAwake(currPet)"
                         [pet]="currPet"></pet-renderer>
         </ng-container>
       </mat-card-content>
@@ -39,7 +41,21 @@ import {transition, trigger, animate, style} from '@angular/animations';
     ]),
     transition(':leave', [
       animate(500, style({transform: 'translateY(100%)'}))
-    ])])]
+    ])]),
+    trigger('petBounce', [
+      state('true', style({transform: 'rotate(0)', opacity: 1})),
+      state('false', style({transform: 'rotate(0)', opacity: 0.5})),
+      transition('true <=> false', [
+        animate(200, keyframes([
+          style({transform: 'rotate(0)'}),
+          style({transform: 'rotate(10deg)'}),
+          style({transform: 'rotate(0)'}),
+          style({transform: 'rotate(-10deg)'}),
+          style({transform: 'rotate(0deg)'})
+        ]))
+      ])
+    ])
+  ]
 })
 export class PetListComponent {
   letter = 'A';
