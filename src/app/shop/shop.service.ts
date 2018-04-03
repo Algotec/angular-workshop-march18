@@ -6,12 +6,14 @@ import {Store} from '@ngrx/store';
 import {IAppState} from '../app.reducers';
 import {take} from 'rxjs/operators';
 import {AddItemAction, DeleteItemAction, EditItemAction} from '../shopAdmin/shop-admin.actions';
+import {shoppingCartSum} from './shop.reducer';
 
 
 @Injectable()
 export class ShopService {
   public readonly cart$ = this.store.select('shop', 'shoppingCart');
   public readonly items$ = this.store.select('shop', 'items');
+  public readonly shoppingCartSum$ = this.store.select(shoppingCartSum);
 
   constructor(private http: HttpClient, private store: Store<IAppState>) {
   }

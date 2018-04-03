@@ -31,14 +31,11 @@ import {MatRipple} from '@angular/material/core';
 })
 export class ShoppingCartComponent implements OnChanges {
   @Input() shoppingCart: IShopItem[] = [];
+  @Input() sum: number;
   @Output() removeFromCart = new EventEmitter<number>();
 
   @ViewChild(MatRipple) ripple;
 
-  get sum() {
-    // console.log('sum called');
-    return this.shoppingCart.reduce((acc, item) => acc += (+item.price), 0);
-  }
 
   ngOnChanges(changes) {
     if (changes.shoppingCart) {

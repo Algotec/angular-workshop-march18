@@ -17,7 +17,8 @@ import {ShopService} from './shop.service';
       </mat-card-header>
       <mat-card-content class="shop-container">
         <shop-list [items]="shopService.items$|async" (purchase)="shopService.addTOCart($event)"></shop-list>
-        <shopping-cart [shoppingCart]="shopService.cart$|async" (removeFromCart)="shopService.removeFromCart($event)"></shopping-cart>
+        <shopping-cart [shoppingCart]="shopService.cart$|async" [sum]="shopService.shoppingCartSum$|async"
+                       (removeFromCart)="shopService.removeFromCart($event)"></shopping-cart>
       </mat-card-content>
     </mat-card>\``
 })
