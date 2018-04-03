@@ -6,6 +6,14 @@ export const GET_ITEMS = '[SHOP] GET_ITEMS';
 export const ITEMS_ARRIVED = '[SHOP] ITEMS_ARRIVED';
 export const ADD_TO_CART = '[SHOP] ADD_TO_CART';
 export const REMOVE_FROM_CART = '[SHOP] REMOVE_FROM_CART';
+export const SERVER_ERROR = '[SHOP] SERVER_ERROR';
+
+export class ServerErrorAction {
+  readonly type = SERVER_ERROR;
+
+  constructor(public error?: Error) {
+  }
+}
 
 export class GetShopItemsAction implements Action {
   readonly type = GET_ITEMS;
@@ -36,6 +44,6 @@ export class RemoveFromCartAction implements Action {
 }
 
 
-export type shopUserActions = GetShopItemsAction | ShopItemsArrivedAction | AddToCartAction | RemoveFromCartAction ;
+export type shopUserActions = GetShopItemsAction | ShopItemsArrivedAction | AddToCartAction | RemoveFromCartAction | ServerErrorAction ;
 
 export type all = shopUserActions | ShopAdminAction.all;

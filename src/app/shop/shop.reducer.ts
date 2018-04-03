@@ -37,7 +37,9 @@ function ShopReducer(state: IShopState = IntialShopState, action: ShopActions.al
     }
     case ShopActions.REMOVE_FROM_CART: {
       state = {...state, ...{shoppingCart: immutableSplice(state.shoppingCart, action.index)}};
+      break;
     }
+
   }
   return state;
 }
