@@ -1,17 +1,17 @@
-import {Resolve, ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
+import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
 import {IShopItem} from './shop.types';
 import {Observable} from 'rxjs';
-import {ShopService} from './shop.service';
 import {Injectable} from '@angular/core';
+import {ShopBackend} from './shop.backend';
 
 @Injectable()
 export class ShopItemResolver implements Resolve<IShopItem> {
-  constructor(private shopService: ShopService) {
+  constructor(private shopBackend: ShopBackend) {
   }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IShopItem>|Promise<IShopItem>|IShopItem {
     let id = route.params['id'];
-    return this.shopService.get(id);
+    return this.shopBackend.get(id);
   }
 
 }

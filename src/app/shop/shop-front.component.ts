@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {ShopService} from './shop.service';
-import {IShopItem} from './shop.types';
 
 @Component({
   selector: 'shop-front',
@@ -17,22 +16,17 @@ import {IShopItem} from './shop.types';
         <mat-card-title><h1>Shop</h1></mat-card-title>
       </mat-card-header>
       <mat-card-content class="shop-container">
-        <shop-list [items]="items" (purchase)="shopService.addTOCart($event)"></shop-list>
-        <shopping-cart [shoppingCart]="shopService.getCart()" (removeFromCart)="shopService.removeFromCart($event)"></shopping-cart>
+        <shop-list [items]="shopService.items$|async" (purchase)="shopService.addTOCart($event)"></shop-list>
+        <shopping-cart [shoppingCart]="shopService.cart$|async" (removeFromCart)="shopService.removeFromCart($event)"></shopping-cart>
       </mat-card-content>
     </mat-card>\``
 })
 export class ShopFrontComponent implements OnInit {
 
-  items: IShopItem[];
-
-
   constructor(public shopService: ShopService) {
   }
 
   ngOnInit() {
-    this.shopService.getItems().then((items) => {
-      this.items = items;
-    });
+    this.shopService.getItems();
   }
 }

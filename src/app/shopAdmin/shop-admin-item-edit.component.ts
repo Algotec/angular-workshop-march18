@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ShopService} from '../shop/shop.service';
 import {IShopItem} from '../shop/shop.types';
@@ -41,17 +40,11 @@ export class ShopAdminItemEditComponent implements OnInit {
   }
 
   onSubmit(formValue) {
-    let promise: Promise<any>;
     if (this.isEdit) {
-      promise = this.shopService.editShopItem(this.item._id, formValue);
+      this.shopService.editShopItem(this.item._id, formValue);
     } else {
-      promise = this.shopService.addItemToShop(formValue);
-
+      this.shopService.addItemToShop(formValue);
     }
-    promise.then(() => {
-      this.router.navigateByUrl('/shop');
-    });
-
   }
 
   ngOnInit() {
@@ -60,7 +53,5 @@ export class ShopAdminItemEditComponent implements OnInit {
       this.item = this.activateRoute.snapshot.data['shopItem'];
       this.isEdit = true;
     }
-
-
   }
 }

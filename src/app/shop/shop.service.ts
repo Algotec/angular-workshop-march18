@@ -1,63 +1,63 @@
 import {IShopItem} from './shop.types';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {tap} from 'rxjs/operators';
+import {AddToCartAction, GetShopItemsAction, RemoveFromCartAction} from './shop.actions';
+import {Store} from '@ngrx/store';
+import {IAppState} from '../app.reducers';
+import {take} from 'rxjs/operators';
+import {AddItemAction, DeleteItemAction, EditItemAction} from '../shopAdmin/shop-admin.actions';
 
 
 @Injectable()
 export class ShopService {
-  private static readonly baseUrl = 'http://localhost:3003/data/petShop';
-  private shoppingCart: IShopItem[] = [];
-  private items: IShopItem[] = [];
+  public readonly cart$ = this.store.select('shop', 'shoppingCart');
+  public readonly items$ = this.store.select('shop', 'items');
 
-  constructor(private http: HttpClient) {
-    this.getItems();
+  constructor(private http: HttpClient, private store: Store<IAppState>) {
   }
 
-  getItems(): Promise<IShopItem[]> {
-    return this.http.get<IShopItem[]>(ShopService.baseUrl)
-      .pipe(tap((items) => {
-        this.items = items;
-      }))
-      .toPromise();
-  }
-
-  get(id: number) {
-    return this.http.get<IShopItem>(ShopService.baseUrl + '/' + id)
-      .toPromise();
+  getItems() {
+    this.store.dispatch(new GetShopItemsAction());
   }
 
   addTOCart(item: IShopItem) {
-    this.shoppingCart = [...this.shoppingCart, item];
+    this.store.dispatch(new AddToCartAction(item._id));
   }
 
-  addItemToShop(item: IShopItem) {
-    return this.http.post(ShopService.baseUrl, item).toPromise();
-  }
-
-  editShopItem(id, data) {
-    return this.http.put(ShopService.baseUrl + '/' + id, {...data, _id: id}).toPromise();
-  }
-
-  removeItemFromShop(id) {
-    return this.http.delete(ShopService.baseUrl + '/' + id).toPromise().then(() => this.getItems());
-  }
 
   removeFromCart(index: number) {
-    this.shoppingCart = [...this.shoppingCart.slice(0, index), ...this.shoppingCart.slice(index + 1)];
+    this.store.dispatch(new RemoveFromCartAction(index));
   }
 
   getNextId(_id) {
-    const index = this.items.findIndex((i) => _id === i._id);
-    return (index === this.items.length - 1) ? this.items[0]._id : this.items[index + 1]._id;
+    const items = this.syncGetStoreItems();
+    const index = items.findIndex((i) => _id === i._id);
+    return (index === items.length - 1) ? items[0]._id : items[index + 1]._id;
   }
 
-  getCart() {
-    return this.shoppingCart;
+  private syncGetStoreItems(): IShopItem[] {
+    let items;
+    this.items$.pipe(take(1)).subscribe((_items) => {
+      items = _items;
+    });
+    return items;
   }
 
   getRandomImage(title = 'pets$') {
     title = title.split(' ')[0].toLowerCase();
     return `http://loremflickr.com/100/100/${title}`;
+  }
+
+  // admin methods
+  addItemToShop(item: IShopItem): void {
+    this.store.dispatch(new AddItemAction(item));
+  }
+
+  editShopItem(id, data): void {
+    this.store.dispatch(new EditItemAction(id, data));
+  }
+
+  removeItemFromShop(id): void {
+    this.store.dispatch(new DeleteItemAction(id));
   }
 }

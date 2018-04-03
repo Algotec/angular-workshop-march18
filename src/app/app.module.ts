@@ -13,11 +13,10 @@ import {StoreModule} from '@ngrx/store';
 import {appReducers} from './app.reducers';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
-import {
-  StoreRouterConnectingModule,
-  RouterStateSerializer,
-} from '@ngrx/router-store';
+import {RouterStateSerializer, StoreRouterConnectingModule,} from '@ngrx/router-store';
 import {CustomRouterStateSerializer} from './shared/routerSerializer';
+import {EffectsModule} from '@ngrx/effects';
+import {RouterEffects} from './shared/router.effects';
 
 @NgModule({
   declarations: [
@@ -34,6 +33,7 @@ import {CustomRouterStateSerializer} from './shared/routerSerializer';
     MatSidenavModule,
     MatToolbarModule,
     StoreModule.forRoot(appReducers),
+    EffectsModule.forRoot([RouterEffects]),
     StoreRouterConnectingModule.forRoot({
       /*
         They stateKey defines the name of the state used by the router-store reducer.

@@ -13,12 +13,16 @@ import {shopRoutes} from './shop.routes';
 import {ShopItemResolver} from './shop-item.resolver';
 import {ShopItemExtraComponent} from './shop-item-details-extra.component';
 import {ShopItemBasicComponent} from './shop-item-details-basic.component';
+import {ShopEffectsService} from './shop.effects';
+import {EffectsModule} from '@ngrx/effects';
+import {ShopBackend} from './shop.backend';
+import {ShopAdminEffectsService} from '../shopAdmin/shop-admin.effects';
 
 @NgModule({
-  providers: [ShopService, ShopItemResolver],
+  providers: [ShopService, ShopItemResolver, ShopBackend],
   declarations: [ShopFrontComponent, ShoppingCartComponent, ShopItemDetailsComponent, ShopListComponent,
     ShopListItemRendererComponent, ShopAdminItemEditComponent, ShopItemExtraComponent, ShopItemBasicComponent],
-  imports: [SharedModule, RouterModule.forChild(shopRoutes), FormsModule],
+  imports: [SharedModule, RouterModule.forChild(shopRoutes), FormsModule, EffectsModule.forFeature([ShopEffectsService, ShopAdminEffectsService])],
   exports: [ShopFrontComponent],
 })
 export class ShopModule {
