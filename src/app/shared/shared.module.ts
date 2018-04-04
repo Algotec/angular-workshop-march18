@@ -12,14 +12,17 @@ import {MatInputModule, MatFormFieldModule} from '@angular/material';
 import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import {EqualValidator} from 'app/shared/validateEqual.directive';
+import {ButtonModule, HelpersModule} from '@algotec/ui-elements-webkit';
 
 
 @NgModule({
   providers: [],
   declarations: [LetterSelectorComponent, EqualValidator],
   imports: [CommonModule, MatListModule, MatButtonModule, MatIconModule],
-  exports: [CommonModule, HttpClientModule, FormsModule, ReactiveFormsModule, LetterSelectorComponent, MatCardModule, MatListModule,
-    MatRippleModule, MatButtonModule, MatMenuModule, MatIconModule, MatInputModule, MatFormFieldModule, RouterModule, EqualValidator],
+  exports: [CommonModule, ButtonModule, HelpersModule, HttpClientModule,
+    FormsModule, ReactiveFormsModule, LetterSelectorComponent, MatCardModule,
+    MatListModule, MatRippleModule, MatButtonModule, MatMenuModule, MatIconModule,
+    MatInputModule, MatFormFieldModule, RouterModule, EqualValidator],
 })
 export class SharedModule {
 }
