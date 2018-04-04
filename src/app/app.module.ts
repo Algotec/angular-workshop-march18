@@ -10,7 +10,7 @@ import {UserAuthModule} from './userAuth/user-auth.module';
 import {MatSidenavModule, MatToolbarModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {StoreModule} from '@ngrx/store';
-import {appReducers} from './app.reducers';
+import {APP_REDUCERS, appReducers} from './app.reducers';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 import {RouterStateSerializer, StoreRouterConnectingModule,} from '@ngrx/router-store';
@@ -32,7 +32,7 @@ import {RouterEffects} from './shared/router.effects';
     UserAuthModule,
     MatSidenavModule,
     MatToolbarModule,
-    StoreModule.forRoot(appReducers),
+    StoreModule.forRoot(APP_REDUCERS),
     EffectsModule.forRoot([RouterEffects]),
     StoreRouterConnectingModule.forRoot({
       /*
@@ -46,7 +46,9 @@ import {RouterEffects} from './shared/router.effects';
       logOnly: environment.production,
     })
   ],
-  providers: [{provide: RouterStateSerializer, useClass: CustomRouterStateSerializer},],
+  providers: [
+    {provide: APP_REDUCERS, useFactory: appReducers},
+    {provide: RouterStateSerializer, useClass: CustomRouterStateSerializer}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

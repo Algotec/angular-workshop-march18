@@ -20,7 +20,7 @@ export class PetInputComponent {
     this.petService = petService;
   }
 
-  addPet(petName: string) {
+  addPet() {
     this.petService.addPet(this.petModel);
     this.petModel = new PetModel();
   }

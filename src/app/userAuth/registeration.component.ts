@@ -77,7 +77,7 @@ function matchEqualValidator(originKey: string, matchingKey: string) {
   `
 })
 export class UserRegistrationComponent implements OnInit {
-  private userForm: FormGroup;
+  userForm: FormGroup;
 
   constructor(public fb: FormBuilder, private doesUsernameExistsValidator: DoesUsernameExistsValidator) {
   }
