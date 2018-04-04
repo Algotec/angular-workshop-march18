@@ -1,6 +1,13 @@
 import {Component, DoCheck} from '@angular/core';
 import {AuthService} from './userAuth/auth.service';
-import {ButtonModel, ButtonType, UIButtonOptionsModel, UIElementModel} from '@algotec/wmdl-webkit';
+import {
+  ButtonModel,
+  ButtonType,
+  ElementModelHelper,
+  UIButtonOptionsModel,
+  UIElementModel,
+  UIElementModelHelper
+} from '@algotec/wmdl-webkit';
 
 @Component({
   selector: 'app-root',
@@ -13,18 +20,24 @@ export class AppComponent implements DoCheck {
   // we also added general styles in styles.css
   htmlOptions = {theme: 'light'};
 
-  linkBtn: UIElementModel<ButtonModel, UIButtonOptionsModel> = new UIElementModel({
-    toolID: 'linkBtn',
-    elementModel: new ButtonModel('linkBtn', {text: this.getLoginText(this.authService.isLoggedIn)}),
-    options: new UIButtonOptionsModel({
-      showIcon: false,
-      showText: true,
-      buttonType: ButtonType.RegularButton
-    })
-  });
+  linkBtn = this.createLinkButton();
+
 
   private getLoginText(isLoggedIn: boolean) {
     return (isLoggedIn) ? 'PROFILE' : 'LOGIN';
+  }
+
+  private createLinkButton() {
+    return UIElementModelHelper.createElement({
+      toolID: 'linkBtn',
+      type: ButtonModel.type,
+      elementModel: {text: this.getLoginText(this.authService.isLoggedIn)},
+      options: {
+        showIcon: false,
+        showText: true,
+        buttonType: ButtonType.RegularButton
+      }
+    });
   }
 
   ngDoCheck() {
@@ -34,9 +47,8 @@ export class AppComponent implements DoCheck {
       // this.linkBtn = this.linkBtn.setIn(['elementModel', 'text'], newValue);
       // would be nice - but won't work - ElementModel is no immutable
       this.linkBtn = this.linkBtn.set('elementModel',
-        new ButtonModel(this.linkBtn.toolID,
-          {...this.linkBtn.elementModel, ...{text: newValue}})
-      );
+        ElementModelHelper.createElementModelByType(ButtonModel.type,
+          {...this.linkBtn.elementModel, ...{text: newValue}}));
     }
   }
 
