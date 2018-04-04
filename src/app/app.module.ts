@@ -18,8 +18,7 @@ import {CustomRouterStateSerializer} from './shared/routerSerializer';
 import {EffectsModule} from '@ngrx/effects';
 import {RouterEffects} from './shared/router.effects';
 import {TranslateModule} from '@ngx-translate/core';
-// global styles (added as a separate stylesheet to the head of the page)
-import '@algotec/themes/global.styles.scss';
+
 import {DynamicModule} from 'ng-dynamic-component';
 import {NgDragDropModule} from 'ng-drag-drop';
 
