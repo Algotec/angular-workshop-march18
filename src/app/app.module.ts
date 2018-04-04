@@ -17,6 +17,11 @@ import {RouterStateSerializer, StoreRouterConnectingModule,} from '@ngrx/router-
 import {CustomRouterStateSerializer} from './shared/routerSerializer';
 import {EffectsModule} from '@ngrx/effects';
 import {RouterEffects} from './shared/router.effects';
+import {TranslateModule} from '@ngx-translate/core';
+// global styles (added as a separate stylesheet to the head of the page)
+import '@algotec/themes/global.styles.scss';
+import {DynamicModule} from 'ng-dynamic-component';
+import {NgDragDropModule} from 'ng-drag-drop';
 
 @NgModule({
   declarations: [
@@ -44,7 +49,10 @@ import {RouterEffects} from './shared/router.effects';
     StoreDevtoolsModule.instrument({
       name: 'Algotec Angular Workshop demo',
       logOnly: environment.production,
-    })
+    }),
+    TranslateModule.forRoot(), // used by all UI-Elements
+    DynamicModule.withComponents([]), // needed for forms, grid
+    NgDragDropModule.forRoot() // needed for button DND behaviour
   ],
   providers: [
     {provide: APP_REDUCERS, useFactory: appReducers},
