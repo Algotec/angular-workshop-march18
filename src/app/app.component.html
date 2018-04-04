@@ -1,4 +1,4 @@
-<mat-sidenav-container [alg-html-element-settings]="htmlOptions">
+<mat-sidenav-container [alg-html-element-settings]="htmlOptions" [producer]="producer">
   <mat-sidenav #sideNav>
     <mat-list (click)="sideNav.close()">
       <mat-list-item><a routerLinkActive="active" routerLink="pets">Pets</a></mat-list-item>
@@ -13,7 +13,8 @@
       </span>
       <h1>Welcome to {{ title }}!</h1>
       <span style="float: right">
-        <alg-button [uiElementModel]="linkBtn" routerLink="login" class="loginLink"></alg-button>
+        <alg-button [uiElementModel]="model$|async" *toolID="let model$ create linkBtn" routerLink="login"
+                    class="loginLink"></alg-button>
       <clock></clock>
       </span>
     </mat-toolbar>

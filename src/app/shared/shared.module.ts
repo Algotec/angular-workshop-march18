@@ -13,10 +13,11 @@ import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import {EqualValidator} from 'app/shared/validateEqual.directive';
 import {ButtonModule, HelpersModule} from '@algotec/ui-elements-webkit';
+import {CommonProducer} from 'app/shared/common.producer';
 
 
 @NgModule({
-  providers: [],
+  providers: [CommonProducer],
   declarations: [LetterSelectorComponent, EqualValidator],
   imports: [CommonModule, MatListModule, MatButtonModule, MatIconModule],
   exports: [CommonModule, ButtonModule, HelpersModule, HttpClientModule,
