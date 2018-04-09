@@ -21,7 +21,6 @@ import {TranslateModule} from '@ngx-translate/core';
 
 import {DynamicModule} from 'ng-dynamic-component';
 import {NgDragDropModule} from 'ng-drag-drop';
-import {NGStoreInfraModule} from '@algotec/ng-store-infra';
 
 @NgModule({
   declarations: [
@@ -53,7 +52,6 @@ import {NGStoreInfraModule} from '@algotec/ng-store-infra';
     TranslateModule.forRoot(), // used by all UI-Elements
     DynamicModule.withComponents([]), // needed for forms, grid
     NgDragDropModule.forRoot(), // needed for button DND behaviour
-    NGStoreInfraModule
   ],
   providers: [
     {provide: APP_REDUCERS, useFactory: appReducers},

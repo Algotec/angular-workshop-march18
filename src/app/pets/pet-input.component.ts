@@ -1,28 +1,60 @@
 import {Component} from '@angular/core';
 import {PetService} from './pet.service';
 import {PetModel} from './pet.model';
+import {FormEventType, IFormInteractionEvent} from '@algotec/wmdl-webkit';
+import {addTextBoxID} from './pets.reducer';
 
 @Component({
   selector: 'pet-input',
+  styles: [`
+    :host {
+      display: flex;
+      height: 50px;
+    }
+
+    ::ng-deep alg-textbox {
+    // not so simple. this does not work will need a much more complicated selector
+    color: white;
+    }
+
+    alg-button {
+      margin-left: 10px;
+    }
+
+    ::ng-deep alg-button .buttonElement.buttonHeight-S.regularButton {
+      height: 30px;
+    }
+  `],
   template: `
-    <h4>Add Pet</h4>
-    <mat-form-field>
-      <input matInput type="text" placeholder="Pet Name" [(ngModel)]="petModel.name"/>
-    </mat-form-field>
-    <button mat-raised-button color="primary" (click)="addPet()">Add Pet</button>
+    <alg-textbox [uiElementModel]="textbox$|async" *toolID="let textbox$ of addTextBoxID"
+                 (interaction)="onTextBoxChange($event)"></alg-textbox>
+    <alg-button [uiElementModel]="button$|async" *toolID="let button$ of 'pets.addButton'" (click)="addPet()"></alg-button>
   `
 })
 export class PetInputComponent {
-  petModel = new PetModel('');
-  petService: PetService;
+  addTextBoxID: string = addTextBoxID;
 
-  constructor(petService: PetService) {
-    this.petService = petService;
+  petModel = new PetModel('');
+
+  constructor(public petService: PetService) {
+  }
+
+  onTextBoxChange($event: IFormInteractionEvent) {
+    if ($event.type === 'change') { // really this should be an Enum.. would be improved
+      this.petService.updateTextBoxValue(addTextBoxID, $event.value);
+    }
   }
 
   addPet() {
-    this.petService.addPet(this.petModel);
-    this.petModel = new PetModel();
+    // really such logic should be dealt with in services - not in component.
+    const addTextBoxModel = this.petService.getElementModel(addTextBoxID);
+    if (addTextBoxModel) {
+      this.petModel.name = addTextBoxModel.value;
+      this.petService.addPet(this.petModel);
+      this.petModel = new PetModel();
+    } else {
+      // error handling omitted, its a demo...;
+    }
   }
 
 }

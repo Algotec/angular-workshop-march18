@@ -12,9 +12,9 @@ import {MatInputModule, MatFormFieldModule} from '@angular/material';
 import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
 import {EqualValidator} from 'app/shared/validateEqual.directive';
-import {ButtonModule, HelpersModule} from '@algotec/ui-elements-webkit';
+import {ButtonModule, TextBoxModule, HelpersModule} from '@algotec/ui-elements-webkit';
 import {CommonProducer} from 'app/shared/common.producer';
-
+import {NGStoreInfraModule} from '@algotec/ng-store-infra';
 
 @NgModule({
   providers: [CommonProducer],
@@ -23,7 +23,7 @@ import {CommonProducer} from 'app/shared/common.producer';
   exports: [CommonModule, ButtonModule, HelpersModule, HttpClientModule,
     FormsModule, ReactiveFormsModule, LetterSelectorComponent, MatCardModule,
     MatListModule, MatRippleModule, MatButtonModule, MatMenuModule, MatIconModule,
-    MatInputModule, MatFormFieldModule, RouterModule, EqualValidator],
+    MatInputModule, MatFormFieldModule, RouterModule, EqualValidator, TextBoxModule, NGStoreInfraModule],
 })
 export class SharedModule {
 }

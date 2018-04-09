@@ -9,7 +9,6 @@ import {TimeModule} from '../time/time.module';
 import {PetsComponent} from './pets.component';
 import {PetDetailsComponent} from './pet-details.component';
 import {RouterModule, Routes} from '@angular/router';
-import {MatListModule} from '@angular/material';
 
 export const petRoutes: Routes = [
   {
