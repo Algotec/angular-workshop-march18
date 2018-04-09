@@ -13,8 +13,7 @@ import {addTextBoxID} from './pets.reducer';
     }
 
     ::ng-deep alg-textbox {
-    // not so simple. this does not work will need a much more complicated selector
-    color: white;
+    / / not so simple . this does not work will need a much more complicated selector color: white;
     }
 
     alg-button {
@@ -26,17 +25,21 @@ import {addTextBoxID} from './pets.reducer';
     }
   `],
   template: `
-    <alg-textbox [uiElementModel]="textbox$|async" *toolID="let textbox$ of addTextBoxID"
-                 (interaction)="onTextBoxChange($event)"></alg-textbox>
-    <alg-button [uiElementModel]="button$|async" *toolID="let button$ of 'pets.addButton'" (click)="addPet()"></alg-button>
+    <ng-container [producer]="producer">
+      <alg-textbox [uiElementModel]="textbox$|async" *toolID="let textbox$ of addTextBoxID"
+                   (interaction)="onTextBoxChange($event)"></alg-textbox>
+      <alg-button [uiElementModel]="button$|async" *toolID="let button$ of 'pets.addButton'" (click)="addPet()"></alg-button>
+    </ng-container>
   `
 })
 export class PetInputComponent {
   addTextBoxID: string = addTextBoxID;
 
   petModel = new PetModel('');
+  producer = this.petService.createSubTreeProducer('add'); // just to demo we can optimize by starting from higher up the tree
 
   constructor(public petService: PetService) {
+
   }
 
   onTextBoxChange($event: IFormInteractionEvent) {

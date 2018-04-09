@@ -17,27 +17,32 @@ export const addTextBoxID = 'pets.addTextBox';
 export const initialPetUIState = PetUIState.init({
   toolID: 'pets', children: [
     {
-      type: TextBoxModel.type,
-      elementModel: {
-        text: 'Add Pet',
-        placeholder: 'Pet Name'
-      },
-      options: {controlHeight: 'S'} as UIElementOptionsModel,
-      toolID: addTextBoxID
-    },
-    {
-      type: ButtonModel.type,
-      elementModel: {text: 'Add Pet'} as ButtonModel,
-      toolID: 'pets.addButton',
-      options: {
-        buttonType: ButtonType.RegularButton,
-        labelPosition: 'LEFT',
-        showIcon: false,
-        showText: true,
-        prefixWidth: 'HIDDEN',
-        controlHeight: 'S'
-      } as UIButtonOptionsModel
+      toolID: 'add', children: [
+        {
+          type: TextBoxModel.type,
+          elementModel: {
+            text: 'Add Pet',
+            placeholder: 'Pet Name'
+          },
+          options: {controlHeight: 'S'} as UIElementOptionsModel,
+          toolID: addTextBoxID
+        },
+        {
+          type: ButtonModel.type,
+          elementModel: {text: 'Add Pet'} as ButtonModel,
+          toolID: 'pets.addButton',
+          options: {
+            buttonType: ButtonType.RegularButton,
+            labelPosition: 'LEFT',
+            showIcon: false,
+            showText: true,
+            prefixWidth: 'HIDDEN',
+            controlHeight: 'S'
+          } as UIButtonOptionsModel
+        }
+      ]
     }
+
   ]
 });
 
