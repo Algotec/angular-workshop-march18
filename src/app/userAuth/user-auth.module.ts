@@ -7,6 +7,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {UserRegistrationComponent} from './registeration.component';
 import {RegistrationContainerComponent} from './registration-container.component';
 import {DoesUsernameExistsValidator} from './doesUsernameExistsValidator';
+import {UIWebkitFormsModule} from '@algotec/ui-elements-webkit';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -17,7 +18,7 @@ const routes: Routes = [
 @NgModule({
   providers: [AuthGuard, AuthService, DoesUsernameExistsValidator],
   declarations: [LoginComponent, UserRegistrationComponent, RegistrationContainerComponent],
-  imports: [SharedModule, RouterModule.forChild(routes)],
+  imports: [SharedModule, UIWebkitFormsModule, RouterModule.forChild(routes)],
   exports: [LoginComponent],
 })
 export class UserAuthModule {

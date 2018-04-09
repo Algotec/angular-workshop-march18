@@ -9,8 +9,8 @@ import {appRoutes} from './app.routes';
 import {UserAuthModule} from './userAuth/user-auth.module';
 import {MatSidenavModule, MatToolbarModule} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {StoreModule} from '@ngrx/store';
-import {APP_REDUCERS, appReducers} from './app.reducers';
+import {Store, StoreModule} from '@ngrx/store';
+import {APP_REDUCERS, appReducers, IAppState} from './app.reducers';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 import {RouterStateSerializer, StoreRouterConnectingModule,} from '@ngrx/router-store';
@@ -59,4 +59,12 @@ import {NgDragDropModule} from 'ng-drag-drop';
   bootstrap: [AppComponent]
 })
 export class AppModule {
+  constructor(store: Store<IAppState>) {
+    if (!environment.production) {
+      store.subscribe((state) => {
+        (window as any).AppState = state;
+
+      });
+    }
+  }
 }

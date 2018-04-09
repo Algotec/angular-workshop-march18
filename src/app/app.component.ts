@@ -12,7 +12,7 @@ export class AppComponent implements DoCheck {
   title = `Pets 'R' us`;
   // add a general theme via the html-element-settings-directive
   // we also added general styles in styles.css
-  htmlOptions = {theme: 'light'};
+  htmlOptions = {theme: 'dark'};
   linkBtn = {
     toolID: 'linkBtn',
     type: ButtonModel.type,
